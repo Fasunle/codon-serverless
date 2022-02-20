@@ -11,7 +11,7 @@ function App() {
 
   const fetchCoins = async () => {
     const data = await API.get("cryptoapi", "/coin");
-    updateCoins(data.coin);
+    updateCoins(data.coins);
   };
   return (
     <div className="App">
