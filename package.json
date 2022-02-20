@@ -1,7 +1,12 @@
 {
   "name": "codon",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "author": {
+    "email": "kfasunle@gmail.com",
+    "name": "Kehinde Fasunle",
+    "url": "https://github.com/Fasunle/codon-serverless"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
@@ -9,6 +14,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0",
+    "aws-amplify": "^4.3.14",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
