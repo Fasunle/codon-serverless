@@ -29,7 +29,7 @@ app.use(function (req, res, next) {
 
 app.get("/coin", function (req, res) {
   // Add your code here
-  const apiUrl = `https://api.coinlore.com/api/tickers/?start=0&limit=10`;
+  let apiUrl = `https://api.coinlore.com/api/tickers/?start=0&limit=10`;
 
   // Check if there are any query string parameters
   // If so, reset the base url to include them
