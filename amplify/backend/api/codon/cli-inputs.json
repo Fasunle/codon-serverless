@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "codon",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "C:\\Users\\USER\\FASUNLE\\web\\serverless\\codon\\amplify\\backend\\api\\codon\\schema.graphql",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 7,
+      "apiKeyExpirationDate": "2022-02-28T10:29:10.788Z",
+      "keyDescription": "Single object with key"
+    }
+  }
+}
