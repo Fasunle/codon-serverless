@@ -1,8 +1,13 @@
 import { API } from "aws-amplify";
 import { useReducer, useEffect } from "react";
 import { List } from "antd";
+import { v4 as uuid } from "uuid";
 import "./App.css";
 import { listNotes } from "./graphql/queries";
+import { createNote } from "./graphql/mutations";
+
+// generate unique identifier for the user
+const CLIENT_ID = uuid();
 
 const initialState = {
   notes: [],
@@ -49,6 +54,29 @@ function App() {
       dispatch({ type: "SET_NOTE", notes: notesData.data.listNotes.items });
     } catch (error) {
       console.error("error: ", error);
+      dispatch({ type: "ERROR" });
+    }
+  };
+
+  const createNote = async () => {
+    const { form } = state;
+
+    if (!form.name && !form.description) {
+      alert("Please enter name and description");
+    }
+
+    const note = { ...form, clientId: CLIENT_ID, id: uuid(), completed: false };
+    dispatch({ type: "ADD_NOTE", note });
+    dispatch({ type: "RESET_FORM" });
+
+    try {
+      await API.graphql({
+        query: createNote,
+        variables: note,
+      });
+      console.log("Successfully created note!");
+    } catch (error) {
+      console.log("error: ", error);
       dispatch({ type: "ERROR" });
     }
   };
