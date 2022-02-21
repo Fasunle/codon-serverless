@@ -4,7 +4,7 @@ import { List } from "antd";
 import { v4 as uuid } from "uuid";
 import "./App.css";
 import { listNotes } from "./graphql/queries";
-import { createNote } from "./graphql/mutations";
+import { createNote as createNoteMutation } from "./graphql/mutations";
 
 // generate unique identifier for the user
 const CLIENT_ID = uuid();
@@ -71,7 +71,7 @@ function App() {
 
     try {
       await API.graphql({
-        query: createNote,
+        query: createNoteMutation,
         variables: note,
       });
       console.log("Successfully created note!");
