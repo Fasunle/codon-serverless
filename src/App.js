@@ -104,7 +104,20 @@ function App() {
       dispatch({ type: "ERROR" });
     }
   };
-  const deleteNote = async (item) => {};
+  const deleteNote = async (item) => {
+    const notes = state.notes.filter((n) => n.id !== item.id);
+    try {
+      await API.graphql({
+        query: deleteNoteMutation,
+        variables: { input: { id: item.id } },
+      });
+      console.log("💯 successful deletion");
+      dispatch({ type: ACTION_.SET_NOTE, notes });
+    } catch (error) {
+      console.log("Error: ", error);
+      dispatch({ type: ACTION_.ERROR });
+    }
+  };
   const onChange = (e) => {
     dispatch({
       type: "SET_INPUT",
