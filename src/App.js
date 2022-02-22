@@ -115,7 +115,13 @@ function App() {
 
   const renderItem = (item) => {
     return (
-      <List.Item className={styles.item}>
+      <List.Item
+        className={styles.item}
+        actions={[
+          <p style={styles.p} onClick={() => updateNote(item)}>
+            {item.completed ? "✔ Completed" : "Mark completed"}
+          </p>,
+        ]}>
         <List.Item.Meta
           className={styles.input}
           title={item.name}
