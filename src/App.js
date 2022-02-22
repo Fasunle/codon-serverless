@@ -27,21 +27,29 @@ const styles = {
   p: { color: "#1890ff" },
 };
 
+const ACTION_ = {
+  SET_NOTE: "SET_NOTE",
+  ADD_NOTE: "ADD_NOTE",
+  RESET_FORM: "RESET_FORM",
+  SET_INPUT: "SET_INPUT",
+  ERROR: "ERROR",
+};
+
 const reducer = (state, action) => {
   switch (action.type) {
-    case "SET_NOTE":
+    case ACTION_.SET_NOTE:
       return { ...state, notes: action.notes, loading: false };
 
-    case "ADD_NOTE":
+    case ACTION_.ADD_NOTE:
       return { ...state, notes: [action.note, ...state.notes] };
 
-    case "RESET_FORM":
+    case ACTION_.RESET_FORM:
       return { ...state, form: initialState.form };
 
-    case "SET_INPUT":
+    case ACTION_.SET_INPUT:
       return { ...state, form: { ...state.form, [action.name]: action.value } };
 
-    case "ERROR":
+    case ACTION_.ERROR:
       return { ...state, loading: false, error: true };
 
     default:
@@ -55,10 +63,13 @@ function App() {
   const fetchNotes = async () => {
     try {
       const notesData = await API.graphql({ query: listNotes });
-      dispatch({ type: "SET_NOTE", notes: notesData.data.listNotes.items });
+      dispatch({
+        type: ACTION_.SET_NOTE,
+        notes: notesData.data.listNotes.items,
+      });
     } catch (error) {
       console.error("error: ", error);
-      dispatch({ type: "ERROR" });
+      dispatch({ type: ACTION_.ERROR });
     }
   };
 
@@ -71,8 +82,8 @@ function App() {
     }
 
     const note = { ...form, clientId: CLIENT_ID, id: uuid(), completed: false };
-    dispatch({ type: "ADD_NOTE", note });
-    dispatch({ type: "RESET_FORM" });
+    dispatch({ type: ACTION_.ADD_NOTE, note });
+    dispatch({ type: ACTION_.RESET_FORM });
 
     try {
       await API.graphql({
@@ -82,7 +93,7 @@ function App() {
       // console.log("Successfully created note!");
     } catch (error) {
       console.log("error: ", error);
-      dispatch({ type: "ERROR" });
+      dispatch({ type: ACTION_.ERROR });
     }
   };
 
@@ -97,11 +108,11 @@ function App() {
           input: { id: note.id, completed: foundNote.completed },
         },
       });
-      dispatch({ type: "SET_INPUT", notes: state.notes });
+      dispatch({ type: ACTION_.SET_INPUT, notes: state.notes });
       console.log("Updated successfully");
     } catch (error) {
       console.log("Error: ", error);
-      dispatch({ type: "ERROR" });
+      dispatch({ type: ACTION_.ERROR });
     }
   };
   const deleteNote = async (item) => {
@@ -120,7 +131,7 @@ function App() {
   };
   const onChange = (e) => {
     dispatch({
-      type: "SET_INPUT",
+      type: ACTION_.SET_INPUT,
       name: e.target.name,
       value: e.target.value,
     });
