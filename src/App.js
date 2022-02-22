@@ -166,7 +166,9 @@ function App() {
       query: onCreateNote,
     }).subscribe({
       next: (data) => {
-        const note = data.value.onCreateNote;
+        const note = data?.value.data.onCreateNote;
+        if (CLIENT_ID === note.clientId) return;
+        dispatch({ type: ACTION_.SET_NOTE, note });
       },
     });
   }, []);
