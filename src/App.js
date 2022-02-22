@@ -72,9 +72,9 @@ function App() {
     try {
       await API.graphql({
         query: createNoteMutation,
-        variables: note,
+        variables: { input: note }, // ! NOTE since input is specified as the graphql argument, it must be handled as shown here
       });
-      console.log("Successfully created note!");
+      // console.log("Successfully created note!");
     } catch (error) {
       console.log("error: ", error);
       dispatch({ type: "ERROR" });
