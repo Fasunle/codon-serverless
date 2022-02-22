@@ -4,7 +4,11 @@ import { List, Button, Input } from "antd";
 import { v4 as uuid } from "uuid";
 import "./App.css";
 import { listNotes } from "./graphql/queries";
-import { createNote as createNoteMutation } from "./graphql/mutations";
+import {
+  createNote as createNoteMutation,
+  updateNote as updateNoteMutation,
+  deleteNote as deleteNoteMutation,
+} from "./graphql/mutations";
 
 // generate unique identifier for the user
 const CLIENT_ID = uuid();
@@ -82,6 +86,25 @@ function App() {
     }
   };
 
+  const updateNote = async (note) => {
+    const foundNote = state.notes.find((n) => n.id === note.id);
+    foundNote.completed = !note.completed;
+
+    try {
+      await API.graphql({
+        query: updateNoteMutation,
+        variables: {
+          input: { id: note.id, completed: foundNote.completed },
+        },
+      });
+      dispatch({ type: "SET_INPUT", notes: state.notes });
+      console.log("Updated successfully");
+    } catch (error) {
+      console.log("Error: ", error);
+      dispatch({ type: "ERROR" });
+    }
+  };
+  const deleteNote = async (item) => {};
   const onChange = (e) => {
     dispatch({
       type: "SET_INPUT",
