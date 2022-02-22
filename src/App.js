@@ -131,6 +131,9 @@ function App() {
       <List.Item
         className={styles.item}
         actions={[
+          <p style={styles.p} onClick={() => deleteNote(item)}>
+            Delete
+          </p>,
           <p style={styles.p} onClick={() => updateNote(item)}>
             {item.completed ? "✔ Completed" : "Mark completed"}
           </p>,
