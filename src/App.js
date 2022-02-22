@@ -1,6 +1,6 @@
 import { API } from "aws-amplify";
 import { useReducer, useEffect } from "react";
-import { List } from "antd";
+import { List, Button, Input } from "antd";
 import { v4 as uuid } from "uuid";
 import "./App.css";
 import { listNotes } from "./graphql/queries";
@@ -107,6 +107,23 @@ function App() {
 
   return (
     <div className={styles.container}>
+      <Input
+        onChange={onChange}
+        name="name"
+        value={state.form.name}
+        placeholder="Note Name"
+        style={styles.input}
+      />
+      <Input
+        onChange={onChange}
+        name="description"
+        value={state.form.description}
+        placeholder="Note Description"
+        style={styles.input}
+      />
+      <Button type="primary" onClick={createNote}>
+        Create New Note
+      </Button>
       <List
         loading={state.loading}
         dataSource={state.notes}
