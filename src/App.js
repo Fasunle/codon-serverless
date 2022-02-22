@@ -63,6 +63,7 @@ function App() {
 
     if (!form.name && !form.description) {
       alert("Please enter name and description");
+      return;
     }
 
     const note = { ...form, clientId: CLIENT_ID, id: uuid(), completed: false };
