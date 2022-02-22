@@ -81,6 +81,14 @@ function App() {
     }
   };
 
+  const onChange = (e) => {
+    dispatch({
+      type: "SET_INPUT",
+      name: e.target.name,
+      value: e.target.value,
+    });
+  };
+
   const renderItem = (item) => {
     return (
       <List.Item className={styles.item}>
