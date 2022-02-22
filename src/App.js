@@ -10,6 +10,8 @@ import {
   deleteNote as deleteNoteMutation,
 } from "./graphql/mutations";
 
+import { onCreateNote } from "./graphql/subscriptions";
+
 // generate unique identifier for the user
 const CLIENT_ID = uuid();
 
@@ -160,6 +162,13 @@ function App() {
 
   useEffect(() => {
     fetchNotes();
+    API.graphql({
+      query: onCreateNote,
+    }).subscribe({
+      next: (data) => {
+        const note = data.value.onCreateNote;
+      },
+    });
   }, []);
 
   return (
