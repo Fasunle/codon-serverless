@@ -17,7 +17,10 @@ import Public from "./Public";
 const Router = () => {
   return (
     <HashRouter>
-      {/* Non-route could only be used in the router but not in the Routes. Route component could also wrap non-route component */}
+      {/* 
+        Non-route could only be used in the router but not in the Routes.
+        Route component could also wrap non-route component 
+      */}
       <Nav />
       <Routes>
         <Route exact path="/home" element={<Public />} />
