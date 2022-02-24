@@ -11,7 +11,7 @@ const Protected = () => {
     Auth.currentAuthenticatedUser().catch(() => {
       navigation("/profile");
     });
-  }, []);
+  }, [navigation]); // when navigation changes, the page is refreshed
 
   return (
     <Container>
